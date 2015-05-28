@@ -1,0 +1,16 @@
+{
+  "name": "one-two-trip",
+  "version": "0.0.1",
+  "main": "src/app.js",
+  "author": "Renat Abdusalamov",
+  "dependencies": {
+    "redis": "0.12.1",
+    "async": "1.0.0"
+  },
+  "devDependencies": {
+
+  },
+  "scripts": {
+  },
+  "private": true
+}
