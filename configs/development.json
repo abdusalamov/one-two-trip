@@ -1,10 +1,20 @@
 {
+  "debugLevel": "debug",
   "transports": {
     "redis": {
+      "transport": "redis",
       "host": "localhost",
       "port": 6379,
       "db": 1,
       "channel": "message"
     }
+  },
+  "generator": {
+    "id": 0,
+    "interval": 500
+  },
+  "listener": {
+    "id": 1,
+    "heartbeatInterval": 1000
   }
 }

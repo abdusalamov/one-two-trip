@@ -5,7 +5,8 @@
   "author": "Renat Abdusalamov",
   "dependencies": {
     "redis": "0.12.1",
-    "async": "1.0.0"
+    "async": "1.0.0",
+    "underscore": "1.8.3"
   },
   "devDependencies": {
 

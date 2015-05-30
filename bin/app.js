@@ -1,1 +1,1 @@
-require('./../src/app').run();
+require('./../src/app').app.run();
