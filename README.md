@@ -3,7 +3,7 @@
 Clone this repository:
 
 ``` bash
-git clone https://github.com/abdusalamov/one-two-trip.git
+git clone https://github.com/abdusalamov/one-two-trip-test-task.git
 ```
 
 Install all dependencies:
