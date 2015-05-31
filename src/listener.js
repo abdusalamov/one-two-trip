@@ -1,6 +1,18 @@
 var EventEmitter = require('events').EventEmitter,
     util = require('util');
 
+/**
+ * Компонент Слушатель
+ *
+ * @param logger
+ * @param mediator
+ * @constructor
+ *
+ * Events:
+ * message - новое сообщение
+ * module:listener:registerProcess - попытка начать обработку сообщения
+ * module:listener:proceedProcess - успешная попытка, обрабатываем
+ */
 var Listener = function (logger, mediator) {
     this.logger = logger;
     this.mediator = mediator instanceof EventEmitter && mediator || this;
@@ -8,7 +20,8 @@ var Listener = function (logger, mediator) {
     this.handleMessageLink = this.handleMessage.bind(this);
 
     this.mediator.on('message', this.handleMessageLink);
-    this.mediator.on('application:change_role', this.switchRole.bind(this))
+    this.mediator.on('application:change_role', this.switchRole.bind(this));
+    this.mediator.on('module:listener:proceedProcess', this.proceed.bind(this));
 };
 
 util.inherits(Listener, EventEmitter);
@@ -32,8 +45,24 @@ Listener.prototype.switchRole = function (role) {
 };
 
 Listener.prototype.handleMessage = function (message) {
-    this.logger.debug('receive message:', message);
     this.checkHeartbeat();
+    this.mediator.emit('module:listener:registerProcess', message);
+};
+
+Listener.prototype.proceed = function (message) {
+    this.logger.debug('receive message:', message);
+    this.eventHandler(message, function (err, msg) {
+        if (err) this.mediator.emit('module:listener:error', msg);
+    }.bind(this));
+};
+
+// функция из задания, без изменений
+Listener.prototype.eventHandler = function(msg, callback){
+    function onComplete(){
+        var error = Math.random() > 0.85;
+        callback(error, msg);
+    }
+    setTimeout(onComplete, Math.floor(Math.random()*1000));
 };
 
 Listener.prototype.checkHeartbeat = function () {
